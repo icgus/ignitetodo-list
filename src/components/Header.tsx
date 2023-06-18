@@ -1,7 +1,7 @@
 import Logo from '../assets/Logo.svg'
 import { AiOutlinePlusCircle} from 'react-icons/ai'
 import styles from './Header.module.css'
-import { FormEvent, useState, ChangeEvent } from 'react'
+import { FormEvent, useState, ChangeEvent, InvalidEvent } from 'react'
 
 interface Props {
     onAddTask: (taskTitle: string) => void;
@@ -15,11 +15,16 @@ export function Header({ onAddTask }: Props) {
 
         onAddTask(title);
 
-        setTitle("");
+        setTitle('');
     }
 
     function onChangeTitle(event: ChangeEvent<HTMLInputElement>) {
+        event.target.setCustomValidity('');
         setTitle(event.target.value);
+    }
+
+    function handleNewTaskInvalid(event: InvalidEvent<HTMLInputElement>) {
+        event.target.setCustomValidity('Esse campo é obrigatório');
     }
 
     return (
@@ -31,6 +36,8 @@ export function Header({ onAddTask }: Props) {
                 placeholder='Adcione uma nova tarefa' 
                 onChange={onChangeTitle}
                 value={title}
+                onInvalid={handleNewTaskInvalid}
+                required
                 />
                 <button className={styles.newTaskButton}>
                     Criar
