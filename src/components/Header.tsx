@@ -24,7 +24,7 @@ export function Header({ onAddTask }: Props) {
     }
 
     function handleNewTaskInvalid(event: InvalidEvent<HTMLInputElement>) {
-        event.target.setCustomValidity('Esse campo é obrigatório');
+        event.target.setCustomValidity('Por favor, digite uma tarefa');
     }
 
     return (
